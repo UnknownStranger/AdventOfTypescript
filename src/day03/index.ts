@@ -3,10 +3,10 @@ import run from "aocrunner";
 const parseInput = (rawInput: string) => rawInput;
 
 const part1 = (rawInput: string) => {
-  const input = parseInput(rawInput);
-  const bitsCount = new Array(12).fill(0);
+  const input = parseInput(rawInput).split("\n");
+  const bitsCount = new Array(input[0].length).fill(0);
 
-  input.split("\n").forEach((line) => {
+  input.forEach((line) => {
     line.split("").forEach((char, index) => {
       if (char === "1") {
         bitsCount[index]++;
@@ -16,8 +16,8 @@ const part1 = (rawInput: string) => {
     });
   });
 
-  const gamma = new Array(12).fill(0);
-  const epsilon = new Array(12).fill(0);
+  const gamma: number[] = [];
+  const epsilon: number[] = [];
 
   bitsCount.forEach((count, index) => {
     gamma[index] = count >= 0 ? 1 : 0;
@@ -75,26 +75,25 @@ const part2 = (rawInput: string) => {
 };
 
 const testInput = `00100
-                   11110
-                   10110
-                   10111
-                   10101
-                   01111
-                   00111
-                   11100
-                   10000
-                   11001
-                   00010
-                   01010`;
+11110
+10110
+10111
+10101
+01111
+00111
+11100
+10000
+11001
+00010
+01010
+`;
 run({
   part1: {
-    // tests: [{ input: "", expected: "" }],
+    tests: [{ input: testInput, expected: 198 }],
     solution: part1,
   },
   part2: {
-    tests: [
-      // {'', ''},
-    ],
+    tests: [{ input: testInput, expected: 230 }],
     solution: part2,
   },
   trimTestInputs: true,
