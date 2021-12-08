@@ -75,9 +75,7 @@ class Grid {
   }
 }
 
-const part1 = (rawInput: string) => {
-  const vectors = parseInput(rawInput);
-
+function parseGrid(vectors: Vector2[]) {
   let count = 0;
   const grid = new Grid();
   vectors.forEach((v) => {
@@ -92,26 +90,16 @@ const part1 = (rawInput: string) => {
     }
   });
   return count;
+}
+
+const part1 = (rawInput: string) => {
+  const vectors = parseInput(rawInput);
+  return parseGrid(vectors);
 };
 
 const part2 = (rawInput: string) => {
   const vectors = parseInput(rawInput, true);
-
-  let count = 0;
-  const grid = new Grid();
-  vectors.forEach((v) => {
-    for (let i = 0; i <= v.distance; i++) {
-      const point = new Point(
-        v.startPoint.x +
-          Math.floor((i * (v.endPoint.x - v.startPoint.x)) / v.distance),
-        v.startPoint.y +
-          Math.floor((i * (v.endPoint.y - v.startPoint.y)) / v.distance),
-      );
-      grid.markPoint(point) === true ? count++ : null;
-    }
-  });
-
-  return count;
+  return parseGrid(vectors);
 };
 
 const testInput = `0,9 -> 5,9
